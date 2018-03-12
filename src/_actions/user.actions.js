@@ -3,13 +3,25 @@ import { userService } from '../_services';
 import { alertActions } from './';
 import { history } from '../_helpers';
 
-export const userActions = {
-  login,
-  logout,
-  getAll
-};
+
 
 const login = (username, password) => {
+
+  const request = (user) => ({
+    type: userConstants.LOGIN_REQUEST,
+    user
+  });
+
+  const success = (user) => ({
+    type: userConstants.LOGIN_SUCCESS,
+    user
+  }); 
+
+  const failure = (error) => ({
+    type: userConstants.LOGIN_FAILURE,
+    error
+  });
+
   return dispatch => {
     dispatch(request({ username }));
 
@@ -26,20 +38,7 @@ const login = (username, password) => {
       );
   };
 
-  const request = (user) => ({
-    type: userConstants.LOGIN_REQUEST,
-    user
-  });
 
-  const success = (user) => ({
-    type: userConstants.LOGIN_SUCCESS,
-    user
-  }); 
-
-  const failure = (error) => ({
-    type: userConstants.LOGIN_FAILURE,
-    error
-  });
 };
 
 const logout = () => {
@@ -50,19 +49,6 @@ const logout = () => {
 }
 
 const getAll = () => {
-  return dispatch => {
-    dispatch(request());
-    
-    userService.getAll()
-      .then(
-        users => dispatch(success(users)),
-        error => {
-          dispatch(failure(error));
-          dispatch(alertActions.error(error));
-        }
-      );
-  }
-
   const request = () => ({
     type: userConstants.GETALL_REQUEST,
   });
@@ -76,4 +62,25 @@ const getAll = () => {
     type: userConstants.GETALL_FAILSE,
     error
   });
+
+  return dispatch => {
+    dispatch(request());
+    
+    userService.getAll()
+      .then(
+        users => dispatch(success(users)),
+        error => {
+          dispatch(failure(error));
+          dispatch(alertActions.error(error));
+        }
+      );
+  }
+
+
 }
+
+export const userActions = {
+  login,
+  logout,
+  getAll
+};

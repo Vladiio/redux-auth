@@ -1,4 +1,4 @@
-import userConstans from '../_constants';
+import { userConstants } from '../_constants';
 
 export const users = (
   state = {},
@@ -6,16 +6,16 @@ export const users = (
 ) => {
   switch (action.type) {
     
-    case userConstans.GETALL_REQUEST:
+    case userConstants.GETALL_REQUEST:
       return {
         isLoading: true
       };
-    case userConstans.GETALL_SUCCESS:
+    case userConstants.GETALL_SUCCESS:
       return {
         users: action.users,
         isLoaded: true
       };
-    case userConstans.GETALL_FAILURE:
+    case userConstants.GETALL_FAILURE:
       return {
         error: action.error
       };

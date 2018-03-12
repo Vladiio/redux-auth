@@ -1,8 +1,20 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
-import './index.css';
-import HomePage from './HomePage/HomePage';
+import { Provider } from 'react-redux';
+
+import { store, configureFakeBackend } from './_helpers/';
+import { App } from './App';
 import registerServiceWorker from './registerServiceWorker';
 
-ReactDOM.render(<HomePage />, document.getElementById('root'));
+import './index.css';
+
+
+configureFakeBackend();
+
+ReactDOM.render(
+  <Provider store={store}>
+    <App />
+  </Provider>,
+  document.getElementById('root')
+);
 registerServiceWorker();

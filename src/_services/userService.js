@@ -1,11 +1,6 @@
 import { authHeader } from '../_helpers';
 
 
-export const userService = {
-  login,
-  logout,
-  getAll
-};
 
 const login = (username, password) => {
   const requestOptions = {
@@ -39,7 +34,7 @@ const getAll = () => {
     headers: authHeader()
   };
 
-  fetch('/users', requestOptions).then(handleResponse);
+  return fetch('/users', requestOptions).then(handleResponse);
 };
 
 const handleResponse = (response) => {
@@ -47,4 +42,10 @@ const handleResponse = (response) => {
     return Promise.reject(response.statusText);
   }
   return response.json();
+};
+
+export const userService = {
+  login,
+  logout,
+  getAll
 };
